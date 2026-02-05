@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javon Kersen Wijaya | Full Stack Developer</title>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="script.js" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Critical CSS Inline -->
+    <style>
+        /* Critical Above-the-Fold CSS */
+        :root {
+            --primary: #00ff88;
+            --secondary: #0088ff;
+            --accent: #ff0088;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #f0f0f0;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeInBody 0.5s 1s forwards;
+        }
+        
+        @keyframes fadeInBody {
+            to { opacity: 1; }
+        }
+        
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .preloader-content {
+            text-align: center;
+        }
+        
+        .preloader-logo {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .logo-char {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        .loading-bar {
+            width: min(90%, 400px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .loading-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Advanced Preloader -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <span class="logo-char">J</span>
+                <span class="logo-char">A</span>
+                <span class="logo-char">V</span>
+                <span class="logo-char">O</span>
+                <span class="logo-char">N</span>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-fill" id="loadingFill"></div>
+            </div>
+            <div class="loading-text" id="loadingText">Loading awesome experience...</div>
+            <div class="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        <div class="preloader-particles" id="preloaderParticles"></div>
+    </div>
+
+    <!-- Custom Cursor System -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail"></div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <canvas id="particlesCanvas"></canvas>
+        <div class="floating-grid"></div>
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Navigation with Animations -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo" data-magnetic>
+                <span class="logo-text">JAVON</span>
+                <div class="logo-dot"></div>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active" data-magnetic>
+                    <span class="link-text">Home</span>
+                    <span class="link-dot"></span>
+                </a>
+                <a href="#about" class="nav-link" data-magnetic>
+                    <span class="link-text">About</span>
+                    <span class="link-dot"></span>
+                </a>
+                <a href="#experience" class="nav-link" data-magnetic>
+                    <span class="link-text">Experience</span>
+                    <span class="link-dot"></span>
+                </a>
+                <a href="#skills" class="nav-link" data-magnetic>
+                    <span class="link-text">Skills</span>
+                    <span class="link-dot"></span>
+                </a>
+                <a href="#portfolio" class="nav-link" data-magnetic>
+                    <span class="link-text">Portfolio</span>
+                    <span class="link-dot"></span>
+                </a>
+                <a href="#contact" class="nav-link" data-magnetic>
+                    <span class="link-text">Contact</span>
+                    <span class="link-dot"></span>
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle" id="themeToggle" data-magnetic>
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="nav-progress">
+            <div class="progress-fill"></div>
+        </div>
+    </nav>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress">
+        <div class="progress-ring">
+            <svg width="60" height="60">
+                <circle class="progress-ring-circle" cx="30" cy="30" r="28"></circle>
+            </svg>
+            <div class="progress-text">0%</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section with Fixed Typing -->
+        <section id="home" class="hero-section">
+            <div class="hero-container">
+                <!-- Hero Content - FIXED POSITION -->
+                <div class="hero-content" id="heroContent">
+                    <div class="hero-badge" data-aos="fade-down">
+                        <div class="badge-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <span class="badge-text">Full Stack Developer Since 2020</span>
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        <span class="title-line" data-aos="fade-right">Hello, I'm</span>
+                        <div class="name-container">
+                            <span class="title-name" id="typedName"></span>
+                        </div>
+                        <span class="title-sub" data-aos="fade-left">Website Developer</span>
+                    </h1>
+                    
+                    <div class="hero-divider" data-aos="zoom-in">
+                        <div class="divider-line"></div>
+                        <div class="divider-dot"></div>
+                        <div class="divider-line"></div>
+                    </div>
+                    
+                    <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+                        Building <span class="highlight">digital experiences</span> with passion and precision. 
+                        Specialized in creating <span class="highlight">high-performance web applications</span> 
+                        with modern technologies since 2020.
+                    </p>
+                    
+                    <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
+                        <a href="#portfolio" class="btn btn-primary" data-magnetic>
+                            <span class="btn-text">Explore Portfolio</span>
+                            <span class="btn-icon">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                            <div class="btn-hover"></div>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary" data-magnetic>
+                            <span class="btn-text">Contact Me</span>
+                            <span class="btn-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </span>
+                            <div class="btn-hover"></div>
+                        </a>
+                    </div>
+                    
+                    <!-- Animated Stats -->
+                    <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
+                        <div class="stat-item" data-count="50" data-speed="2000">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Projects</div>
+                            <div class="stat-bar">
+                                <div class="bar-fill"></div>
+                            </div>
+                        </div>
+                        <div class="stat-item" data-count="4" data-speed="1500">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Years Exp</div>
+                            <div class="stat-bar">
+                                <div class="bar-fill"></div>
+                            </div>
+                        </div>
+                        <div class="stat-item" data-count="100" data-speed="2500">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Clients</div>
+                            <div class="stat-bar">
+                                <div class="bar-fill"></div>
+                            </div>
+                        </div>
+                        <div class="stat-item" data-count="24" data-speed="1800">
+                            <div class="stat-number">0</div>
+                            <div class="stat-label">Tech Stack</div>
+                            <div class="stat-bar">
+                                <div class="bar-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero Visual -->
+                <div class="hero-visual">
+                    <div class="visual-container">
+                        <!-- Code Terminal -->
+                        <div class="code-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-dots">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <div class="terminal-title">portfolio.js</div>
+                            </div>
+                            <div class="terminal-content">
+                                <pre><code class="language-javascript">
+<span class="keyword">const</span> <span class="variable">javon</span> = {
+    <span class="property">name</span>: <span class="string">"Javon Kersen Wijaya"</span>,
+    <span class="property">born</span>: <span class="string">"April 29, 2008"</span>,
+    <span class="property">role</span>: <span class="string">"Full Stack Developer"</span>,
+    <span class="property">experience</span>: <span class="number">4</span>,
+    <span class="property">skills</span>: [
+        <span class="string">"React"</span>, <span class="string">"Node.js"</span>,
+        <span class="string">"TypeScript"</span>, <span class="string">"MongoDB"</span>,
+        <span class="string">"AWS"</span>, <span class="string">"Docker"</span>
+    ],
+    <span class="property">passion</span>: <span class="function">()</span> => <span class="string">"Creating amazing web experiences"</span>
+};</code></pre>
+                            </div>
+                            <div class="terminal-cursor"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="800">
+                <div class="mouse-wrapper">
+                    <div class="mouse">
+                        <div class="wheel"></div>
+                    </div>
+                </div>
+                <div class="scroll-text">Scroll to explore</div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="section-container">
+                <div class="section-header" data-aos="fade-up">
+                    <div class="section-label">
+                        <span class="label-number">01</span>
+                        <span class="label-line"></span>
+                        <span class="label-text">About Me</span>
+                    </div>
+                    <h2 class="section-title">
+                        Crafting Digital
+                        <span class="title-gradient">Experiences</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Passionate developer creating solutions since 2020
+                    </p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-visual" data-aos="fade-right">
+                        <div class="visual-wrapper">
+                            <div class="floating-cards">
+                                <div class="floating-card card-1">
+                                    <div class="card-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <h3>Frontend</h3>
+                                    <p>Html, Css, JavaScript</p>
+                                </div>
+                                <div class="floating-card card-2">
+                                    <div class="card-icon">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+                                    <h3>Backend</h3>
+                                    <p>PHP, Python, APIs</p>
+                                </div>
+                                <div class="floating-card card-3">
+                                    <div class="card-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <h3>Database</h3>
+                                    <p>Mysql, PhpMyadmin</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-text" data-aos="fade-left">
+                        <div class="text-content">
+                            <h3 class="about-title">
+                                Building The Future
+                            </h3>
+                            
+                            <div class="about-description">
+                                <p>
+                                    Hello! <span class="highlight">Thank you for reading this far! 🤗,</span>, 
+                                    My name is Javon Kersen Wijaya. I've been working in the computer world for over 4 years.
+                                </p>
+                                <p>
+                                    Besides coding, most of my free time is spent <span class="highlight">designing and creating websites 🤓 </span>. I'm also trying to read more, so don't hesitate to contact me if you have any book recommendations!
+                                </p>
+                            </div>
+                            
+                            <div class="about-info">
+                                <div class="info-grid">
+                                    <div class="info-item" data-aos="zoom-in">
+                                        <div class="info-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">Name</div>
+                                            <div class="info-value">Javon Kersen Wijaya</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="info-item" data-aos="zoom-in" data-aos-delay="100">
+                                        <div class="info-icon">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">Date of Birth</div>
+                                            <div class="info-value">April 29, 2008</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="info-item" data-aos="zoom-in" data-aos-delay="200">
+                                        <div class="info-icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">Location</div>
+                                            <div class="info-value">Indonesia</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="info-item" data-aos="zoom-in" data-aos-delay="300">
+                                        <div class="info-icon">
+                                            <i class="fas fa-briefcase"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">Experience</div>
+                                            <div class="info-value">4+ Years</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section id="experience" class="experience-section">
+            <div class="section-container">
+                <div class="section-header" data-aos="fade-up">
+                    <div class="section-label">
+                        <span class="label-number">02</span>
+                        <span class="label-line"></span>
+                        <span class="label-text">Experience</span>
+                    </div>
+                    <h2 class="section-title">
+                        Professional
+                        <span class="title-gradient">Journey</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        From first code to complex systems
+                    </p>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-line" data-aos="height"></div>
+                    
+                    <div class="timeline-items">
+                        <!-- 2020 -->
+                        <div class="timeline-item" data-aos="fade-right">
+                            <div class="item-date" data-aos="zoom-in">2020</div>
+                            <div class="item-content">
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h3>Junior Web Developer</h3>
+                                        <div class="card-company">Freelance Website</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Started with HTML, CSS, JavaScript basics</p>
+                                        <div class="card-tags">
+                                            <span class="tag">HTML</span>
+                                            <span class="tag">CSS</span>
+                                            <span class="tag">JavaScript</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2021 -->
+                        <div class="timeline-item" data-aos="fade-left">
+                            <div class="item-date" data-aos="zoom-in">2021</div>
+                            <div class="item-content">
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h3>Frontend Developer</h3>
+                                        <div class="card-company">Freelance Website</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Responsive applications and modern frontend</p>
+                                        <div class="card-tags">
+                                            <span class="tag">Html</span>
+                                            <span class="tag">Css</span>
+                                            <span class="tag">JavaScript</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2022 -->
+                        <div class="timeline-item" data-aos="fade-right">
+                            <div class="item-date" data-aos="zoom-in">2022</div>
+                            <div class="item-content">
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h3>Full Stack Developer</h3>
+                                        <div class="card-company">Freelance Website</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Full-stack projects with PHP</p>
+                                        <div class="card-tags">
+                                            <span class="tag">Php</span>
+                                            <span class="tag">JavaScript</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 2023 - Now -->
+                        <div class="timeline-item" data-aos="fade-left">
+                            <div class="item-date" data-aos="zoom-in">2023 - Now</div>
+                            <div class="item-content">
+                                <div class="content-card">
+                                    <div class="card-header">
+                                        <h3>Senior Full Stack</h3>
+                                        <div class="card-company">Freelance Website</div>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Making database applications</p>
+                                        <div class="card-tags">
+                                            <span class="tag">Php</span>
+                                            <span class="tag">Mysql</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section">
+            <div class="section-container">
+                <div class="section-header" data-aos="fade-up">
+                    <div class="section-label">
+                        <span class="label-number">03</span>
+                        <span class="label-line"></span>
+                        <span class="label-text">Skills</span>
+                    </div>
+                    <h2 class="section-title">
+                        Technical
+                        <span class="title-gradient">Expertise</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Mastery across the development stack
+                    </p>
+                </div>
+                
+                <div class="skills-grid">
+                    <!-- Frontend -->
+                    <div class="skill-category" data-aos="flip-up">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <h3>Frontend</h3>
+                        </div>
+                        <div class="skill-list">
+                            <div class="skill-item" data-percent="95">
+                                <div class="skill-name">Html</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">95%</div>
+                            </div>
+                            <div class="skill-item" data-percent="90">
+                                <div class="skill-name">Css</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">90%</div>
+                            </div>
+                            <div class="skill-item" data-percent="85">
+                                <div class="skill-name">JavaScript</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">85%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Backend -->
+                    <div class="skill-category" data-aos="flip-up" data-aos-delay="100">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fab fa-node-js"></i>
+                            </div>
+                            <h3>Backend</h3>
+                        </div>
+                        <div class="skill-list">
+                            <div class="skill-item" data-percent="90">
+                                <div class="skill-name">Node.js</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">90%</div>
+                            </div>
+                            <div class="skill-item" data-percent="85">
+                                <div class="skill-name">Python</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">85%</div>
+                            </div>
+                            <div class="skill-item" data-percent="90">
+                                <div class="skill-name">Php</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">90%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Database -->
+                    <div class="skill-category" data-aos="flip-up" data-aos-delay="200">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>Database</h3>
+                        </div>
+                        <div class="skill-list">
+                            <div class="skill-item" data-percent="85">
+                                <div class="skill-name">MongoDB</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">85%</div>
+                            </div>
+                            <div class="skill-item" data-percent="80">
+                                <div class="skill-name">Mysql</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">80%</div>
+                            </div>
+                            <div class="skill-item" data-percent="75">
+                                <div class="skill-name">Redis</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">75%</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DevOps -->
+                    <div class="skill-category" data-aos="flip-up" data-aos-delay="300">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h3>DevOps</h3>
+                        </div>
+                        <div class="skill-list">
+                            <div class="skill-item" data-percent="80">
+                                <div class="skill-name">Docker</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">80%</div>
+                            </div>
+                            <div class="skill-item" data-percent="75">
+                                <div class="skill-name">AWS</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">75%</div>
+                            </div>
+                            <div class="skill-item" data-percent="85">
+                                <div class="skill-name">CI/CD</div>
+                                <div class="skill-bar">
+                                    <div class="bar-fill"></div>
+                                </div>
+                                <div class="skill-percent">85%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio-section">
+            <div class="section-container">
+                <div class="section-header" data-aos="fade-up">
+                    <div class="section-label">
+                        <span class="label-number">04</span>
+                        <span class="label-line"></span>
+                        <span class="label-text">Portfolio</span>
+                    </div>
+                    <h2 class="section-title">
+                        Featured
+                        <span class="title-gradient">Projects</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Showcase of my best work
+                    </p>
+                </div>
+                
+                <div class="portfolio-filter" data-aos="fade-up">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="web">Web Apps</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+                </div>
+                
+                <div class="portfolio-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card" data-category="ecommerce" data-aos="zoom-in">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=600&q=80" 
+                                         loading="lazy" alt="E-commerce Platform">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-tags">
+                                        <span>Html/Css</span>
+                                        <span>JavaScript</span>
+                                        <span>Mysql</span>
+                                    </div>
+                                    <h3>E-commerce Platform</h3>
+                                    <p>Full-featured online shopping platform</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h4>Features</h4>
+                                    <ul>
+                                        <li>Real-time inventory</li>
+                                        <li>Payment integration</li>
+                                        <li>Admin dashboard</li>
+                                    </ul>
+                                    <div class="card-actions">
+                                        <a href="https://javgeve-demo.kesug.com" class="action-btn">
+                                        <button class="action-btn">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </button>
+                                        </a>
+                                        <button class="action-btn">
+                                            <i class="fab fa-github"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="project-card" data-category="web" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" 
+                                         loading="lazy" alt="Dashboard">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-tags">
+                                        <span>Html</span>
+                                        <span>Css</span>
+                                        <span>JavaScript</span>
+                                    </div>
+                                    <h3>Website Corporation</h3>
+                                    <p>Real-time data visualization</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h4>Features</h4>
+                                    <ul>
+                                        <li>Real-time analytics</li>
+                                        <li>Custom reports</li>
+                                        <li>Team collaboration</li>
+                                    </ul>
+                                    <div class="card-actions">
+                                        <a href="http://newvision-demo.kesug.com" class="action-btn">
+                                        <button class="action-btn">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </button>
+                                        </a>
+                                        <button class="action-btn">
+                                            <i class="fab fa-github"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="project-card" data-category="mobile" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-image">
+                                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80" 
+                                         loading="lazy" alt="Fitness App">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-tags">
+                                        <span>Html/Css</span>
+                                        <span>JavaScript</span>
+                                        <span>Mysql</span>
+                                    </div>
+                                    <h3>Cafe Website</h3>
+                                    <p>Mobile fitness tracking</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <h4>Features</h4>
+                                    <ul>
+                                        <li>Real Time Orders</li>
+                                        <li>Orders tracking</li>
+                                        <li>Admin Dashboard</li>
+                                    </ul>
+                                    <div class="card-actions">
+                                        <a href="https://allegra-demo.kesug.com" class="action-btn">
+                                        <button class="action-btn">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </button>
+                                        </a>
+                                        <button class="action-btn">
+                                            <i class="fab fa-github"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="section-container">
+                <div class="section-header" data-aos="fade-up">
+                    <div class="section-label">
+                        <span class="label-number">05</span>
+                        <span class="label-line"></span>
+                        <span class="label-text">Contact</span>
+                    </div>
+                    <h2 class="section-title">
+                        Let's Create
+                        <span class="title-gradient">Together</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Get in touch for collaborations
+                    </p>
+                </div>
+                
+                <div class="contact-content">
+                    <div class="contact-info" data-aos="fade-right">
+                        <div class="info-card">
+                            <div class="card-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email</h3>
+                            <p>javonff123@gmail.com</p>
+                            <a href="mailto:javon@example.com" class="info-link">
+                                Send Email
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="card-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h3>Phone</h3>
+                            <p>+62 823 5913 6565</p>
+                            <a href="tel:+6281234567890" class="info-link">
+                                Call Now
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="card-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>Location</h3>
+                            <p>Indonesia</p>
+                            <a href="#" class="info-link">
+                                View Map
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form" data-aos="fade-left">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" placeholder="Your Name" required>
+                                <div class="input-border"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="email" id="email" placeholder="Your Email" required>
+                                <div class="input-border"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                                <div class="input-border"></div>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">
+                                <span class="btn-text">Send Message</span>
+                                <span class="btn-icon">
+                                    <i class="fas fa-paper-plane"></i>
+                                </span>
+                                <div class="btn-spinner"></div>
+                                <div class="btn-success">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="social-links" data-aos="fade-up">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-github"></i>
+                        <span class="social-tooltip">GitHub</span>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                        <span class="social-tooltip">LinkedIn</span>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                        <span class="social-tooltip">Twitter</span>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-instagram"></i>
+                        <span class="social-tooltip">Instagram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thank You Section -->
+        <section class="thankyou-section">
+            <div class="section-container">
+                <div class="thankyou-content" data-aos="zoom-in">
+                    <div class="thankyou-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h2 class="thankyou-title">
+                        Thank You
+                    </h2>
+                    <p class="thankyou-message">
+                        Thanks for exploring my portfolio! Let's create something amazing together.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo">JAVON</div>
+                    <p>Full Stack Developer since 2020</p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <div class="footer-theme">
+                    <p>Theme</p>
+                    <div class="theme-switcher">
+                        <button class="theme-option active" data-theme="dark">
+                            <i class="fas fa-moon"></i>
+                            Dark
+                        </button>
+                        <button class="theme-option" data-theme="light">
+                            <i class="fas fa-sun"></i>
+                            Light
+                        </button>
+                        <button class="theme-option" data-theme="auto">
+                            <i class="fas fa-adjust"></i>
+                            Auto
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 Javon Kersen Wijaya. All rights reserved.</p>
+                <div class="footer-backtotop">
+                    <button class="backtotop-btn" id="backToTop">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="script.js" defer></script>
+</body>
+</html>
